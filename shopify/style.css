@@ -1,0 +1,86 @@
+
+/* Base styles for navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #333;
+  padding: 10px 20px;
+}
+
+.navbar a {
+  color: white;
+  padding: 10px;
+  text-decoration: none;
+  display: block;
+}
+
+.navbar ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+.navbar li {
+  position: relative;
+}
+
+.navbar li:hover > ul {
+  display: block;
+  animation: dropdownFadeSlide 0.3s ease forwards;
+}
+
+/* Dropdown styles */
+.navbar li ul {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #444;
+  min-width: 150px;
+  z-index: 1000;
+  opacity: 0;
+  transform: translateY(-10px);
+}
+
+/* Dropdown links */
+.navbar li ul li a {
+  padding: 10px;
+  white-space: nowrap;
+}
+
+/* Animation keyframes */
+@keyframes dropdownFadeSlide {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .navbar ul {
+    flex-direction: column;
+    display: none;
+  }
+
+  .navbar ul.active {
+    display: flex;
+  }
+
+  .navbar li ul {
+    position: static;
+    transform: none;
+    opacity: 1;
+    display: none;
+  }
+
+  .navbar li:hover > ul {
+    display: block;
+  }
+}

@@ -1,0 +1,148 @@
+Last login: Mon Jul 21 20:28:35 on ttys000
+vuyolwetumayambela@MacBookPro ~ % npm init -y
+
+Wrote to /Users/vuyolwetumayambela/package.json:
+
+{
+  "name": "vuyolwetumayambela",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/YOUR_USERNAME/glowandgrace.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/YOUR_USERNAME/glowandgrace/issues"
+  },
+  "homepage": "https://github.com/YOUR_USERNAME/glowandgrace#readme",
+  "description": ""
+}
+
+
+
+vuyolwetumayambela@MacBookPro ~ % {
+  "name": "glowandgrace",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "ISC",
+  "scripts": {
+    "lint": "eslint ."
+  }
+}
+
+zsh: parse error near `}'
+vuyolwetumayambela@MacBookPro ~ % cd ~/Downloads/glowandgrace
+
+vuyolwetumayambela@MacBookPro glowandgrace % nano package.json
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  UW PICO 5.09                   File: package.json                   Modified  
+
+{
+  "name": "glowandgrace",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "ISC",
+  "scripts": {
+    "lint": "eslint ."
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+^G Get Help  ^O WriteOut  ^R Read File ^Y Prev Pg   ^K Cut Text  ^C Cur Pos   
+^X Exit      ^J Justify   ^W Where is  ^V Next Pg   ^U UnCut Text^T To Spell  

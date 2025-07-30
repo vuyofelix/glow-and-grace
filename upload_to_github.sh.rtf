@@ -1,0 +1,85 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2822
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 #!/usr/bin/env bash\
+set -euo pipefail\
+IFS=$'\\n\\t'\
+\
+# --- Default Values ---\
+DEFAULT_REPO_NAME="glowandgrace"\
+DEFAULT_USERNAME="vuyofelix"\
+DEFAULT_ZIP="glowandgrace-automated.zip"\
+DEFAULT_FOLDER="glowandgrace-automated"\
+\
+# --- Parameters ---\
+REPO_NAME="$\{1:-$DEFAULT_REPO_NAME\}"\
+GITHUB_USERNAME="$\{2:-$DEFAULT_USERNAME\}"\
+ZIP_FILE="$\{3:-$DEFAULT_ZIP\}"\
+PROJECT_FOLDER="$\{4:-$DEFAULT_FOLDER\}"\
+REPO_URL="https://github.com/$GITHUB_USERNAME/$REPO_NAME.git"\
+\
+# --- Colors ---\
+RED=$(printf '\\033[31m')\
+GREEN=$(printf '\\033[32m')\
+YELLOW=$(printf '\\033[33m')\
+RESET=$(printf '\\033[0m')\
+\
+# --- Helper Functions ---\
+function info   \{ printf "$\{GREEN\}%s$\{RESET\}\\n" "$1"; \}\
+function warn   \{ printf "$\{YELLOW\}%s$\{RESET\}\\n" "$1"; \}\
+function die    \{ printf "$\{RED\}Error: %s$\{RESET\}\\n" "$1"; exit 1; \}\
+\
+# --- Pre-flight Checks ---\
+command -v gh >/dev/null 2>&1 || die "GitHub CLI (gh) not installed."\
+if ! gh auth status >/dev/null 2>&1; then\
+  info "Authenticating with GitHub CLI..."\
+  gh auth login\
+fi\
+\
+# --- Unzip Project ---\
+[[ -f "$ZIP_FILE" ]] || die "Zip file '$ZIP_FILE' not found."\
+info "Unzipping '$ZIP_FILE'..."\
+unzip -q "$ZIP_FILE" -d .\
+\
+# --- Enter Project Directory ---\
+[[ -d "$PROJECT_FOLDER" ]] || die "Folder '$PROJECT_FOLDER' not found."\
+cd "$PROJECT_FOLDER"\
+\
+# --- Git Repository Setup ---\
+info "Initializing Git repository..."\
+git init\
+git branch -M main\
+\
+# --- Generate .gitignore if Missing ---\
+if [[ ! -f .gitignore ]]; then\
+  warn ".gitignore not found. Creating default .gitignore..."\
+  cat <<EOF > .gitignore\
+# Node.js or general project ignores\
+node_modules/\
+.env\
+.DS_Store\
+EOF\
+fi\
+\
+# --- GitHub Repository Creation ---\
+if gh repo view "$GITHUB_USERNAME/$REPO_NAME" >/dev/null 2>&1; then\
+  warn "Remote repository already exists; skipping creation."\
+else\
+  info "Creating GitHub repository '$REPO_NAME'..."\
+  gh repo create "$GITHUB_USERNAME/$REPO_NAME" --public --source=. --remote=origin\
+fi\
+\
+# --- Commit & Push ---\
+info "Staging files..."\
+git add .\
+info "Committing initial snapshot..."\
+git commit -m "Initial commit for $REPO_NAME"\
+info "Pushing to GitHub..."\
+git push -u origin main\
+\
+info "\uc0\u9989  Done! Your project is live at: $REPO_URL"\
+}

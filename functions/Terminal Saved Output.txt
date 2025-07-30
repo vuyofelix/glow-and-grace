@@ -1,0 +1,150 @@
+Last login: Mon Jul 21 22:55:32 on ttys000
+vuyolwetumayambela@MacBookPro ~ % nano setup-and-deploy.sh
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  UW PICO 5.09               File: setup-and-deploy.sh                Modified  
+
+#!/bin/bash
+
+# Navigate to your functions directory
+cd ~/Downloads/glowandgrace/functions || exit
+
+# Step 1: Overwrite index.js with a clean HTTP function
+cat <<EOF > index.js
+const functions = require("firebase-functions");
+const admin = require("firebase-admin");
+
+admin.initializeApp();
+
+// ✅ Sample HTTP function
+exports.helloWorld = functions.https.onRequest((req, res) => {
+  res.send("Hello from Glow & Grace Firebase!");
+});
+EOF
+
+echo "✅ index.js updated."
+
+# Step 2: Run ESLint with auto-fix
+npm run lint -- --fix
+
+# Step 3: Deploy only functions
+firebase deploy --only functions
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+^G Get Help  ^O WriteOut  ^R Read File ^Y Prev Pg   ^K Cut Text  ^C Cur Pos   
+^X Exit      ^J Justify   ^W Where is  ^V Next Pg   ^U UnCut Text^T To Spell  
